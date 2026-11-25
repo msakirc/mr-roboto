@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mr_roboto"
+version = "0.1.0"
+description = "Mechanical (non-LLM) task executors for KutAI workflows: git, workspace files, verifiers, notifications."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Sakir Cimen" }]
+keywords = ["automation", "workflow", "ai-agents", "git", "kutai"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Framework :: AsyncIO",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "c21_paraflow_diff @ git+https://github.com/msakirc/c21-paraflow-diff.git",
+    "coulson @ git+https://github.com/msakirc/coulson.git",
+    "dabidabi @ git+https://github.com/msakirc/dabidabi.git",
+    "fatih_hoca @ git+https://github.com/msakirc/fatih-hoca.git",
+    "kara_kutu @ git+https://github.com/msakirc/kara-kutu.git",
+    "kuleden_donen_var @ git+https://github.com/msakirc/kuleden-donen-var.git",
+    "sade_kalsin @ git+https://github.com/msakirc/sade-kalsin.git",
+    "safety_guard @ git+https://github.com/msakirc/safety-guard.git",
+    "vecihi @ git+https://github.com/msakirc/vecihi.git",
+    "workflow_engine @ git+https://github.com/msakirc/workflow-engine.git",
+    "yalayut @ git+https://github.com/msakirc/yalayut.git",
+    "general_beckman @ git+https://github.com/msakirc/general-beckman.git",  # back-edge (layering debt): executors enqueue/update — see tests/test_package_layering.py
+    "aiohttp>=3.9.0",
+    "beautifulsoup4>=4.12",
+    "httpx>=0.27",
+    "python-telegram-bot>=22.0",
+    "PyYAML>=6.0",
+    "tomli>=2.0; python_version < '3.11'",
+    "yazbunu @ git+https://github.com/msakirc/yazbunu.git",
+]
+
+# Executors for these integrations soft-skip when their library is absent.
+
+[project.urls]
+Homepage = "https://github.com/msakirc/mr-roboto"
+Repository = "https://github.com/msakirc/mr-roboto"
+Monorepo = "https://github.com/msakirc/kutai/tree/main/packages/mr_roboto"
+
+[project.optional-dependencies]
+browser = ["playwright>=1.40"]
+images = ["Pillow>=10.0"]
+cloud = ["boto3>=1.34"]
+google = ["google-auth", "google-api-python-client", "google-play-scraper>=1.2"]
+social = ["praw"]
+codeintel = ["tree-sitter"]
+testing = ["pytest-json-report", "testcontainers"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mr_roboto = ["rule_packs/*.yml"]
